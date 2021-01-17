@@ -1,43 +1,46 @@
+let buttonDiv = document.querySelector("#options"),
+    gameButtons = buttonDiv.querySelectorAll("button"),
+    gameText = document.querySelector("#gameText"),
+    playerScore = 0,
+    computerScore = 0;
+
 function computerPlay() {
-    let options = ["0", "rock", "paper", "scissors"];
-    let mix = Math.floor(Math.random() * 3 + 1);
+    let options = ["rock", "paper", "scissors"];
+    let mix = Math.floor(Math.random() * options.length);
     return options[mix];
 }
 
-let playerScore = 0;
-let computerScore = 0;
+gameButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        playRound(button.id, computerPlay())
+        })
+    })
 
 function playRound(playerSelection, computerSelection) {
 
-        if ((playerSelection == "paper" && computerSelection == "rock") ||(playerSelection == "rock" && computerSelection == "scissors") || (playerSelection == "scissors" && computerSelection == "paper") ) {
-            playerScore +=1;
-        return `You Win! You played ${playerSelection} and the A.I. played ${computerSelection} `;
-        } else if ((playerSelection == "paper" && computerSelection == "scissors") || (playerSelection == "rock" && computerSelection == "paper") || (playerSelection == "scissors" && computerSelection == "rock")) {
-            computerScore += 1;
-        return `You Lose! You played ${playerSelection} and the A.I. played ${computerSelection}`;
+    function buttonPlay (winner) {
+        if (playerScore == 5 || computerScore == 5) {
+            console.log(playerScore + " AI " + computerScore);
+            buttonDiv.style.display = "none";
+            return gameText.textContent = `${winner} wins the Game! You played ${playerSelection} and the A.I. played ${computerSelection}.`
         } else {
-            return `It's a Tie! You played ${playerSelection} and the A.I. played ${computerSelection} `;
+            console.log(playerScore + " AI " + computerScore);
+            return gameText.textContent = `${winner} wins the Round! \n You played ${playerSelection} and the A.I. played ${computerSelection}. your score: ${playerScore} \n A.I. score: ${computerScore}. \n Next round...`
         }
-}
+    }
 
-
-function game() {
-    while (playerScore !== 5 && computerScore !== 5) {
-        let player;
-        let answer;
-        while ((player !== "rock") && (player !== "paper") && (player !== "scissors")) {
-            answer = prompt("rock, paper, scissors?");
-            player = answer.toLowerCase();
-        }
-        console.log(playRound(player, computerPlay()));
-        console.log ("your score: " + playerScore);
-        console.log ("A.I. score: " + computerScore);
-        console.log ("%cNext round...", "color:grey; font size: 20px; font-style: italic")
-        if (playerScore == 5) {
-            console.log("%cYou Win the Game!", "color:red; font-size: 30px");
-        }
-        else if (computerScore == 5) {
-            console.log("%cYou Lost the Game!", "color:blue; font-size: 30px");
-        }
+    if ((playerSelection == "paper" && computerSelection == "rock") ||
+        (playerSelection == "rock" && computerSelection == "scissors") ||
+        (playerSelection == "scissors" && computerSelection == "paper")) {
+            playerScore +=1;
+            return buttonPlay("player");
+    } else if ((playerSelection == "paper" && computerSelection == "scissors") ||
+        (playerSelection == "rock" && computerSelection == "paper") ||
+        (playerSelection == "scissors" && computerSelection == "rock")) {
+            computerScore += 1;
+            return buttonPlay("A.I.");
+    } else {
+        console.log(playerScore + " AI " + computerScore);
+        return gameText.textContent = `It's a Tie! You played ${playerSelection} and the A.I. played ${computerSelection}. \n your score: ${playerScore} \n A.I. score: ${computerScore}. \n Next round...`;
     }
 }
