@@ -1,4 +1,49 @@
-/* empty for now. */
-p {
-    font-size: 16px;
+html {
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+}
+  body {
+    min-height: 100%;
+  }
+
+#game {
+    display: flex;
+    height: 80vh;
+    align-items:center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#scoreboard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.score {
+    margin: 0px 20px 0px 20px;
+    font-size: 3em;
+}
+
+#player, #AI {
+    display: flex;
+    align-items:center;
+    flex-direction: column;
+    justify-content: center;
+    margin: 30px 5px;
+    border: 1px solid rgba(139, 136, 136, 0.11);
+}
+
+#options {
+    display: flex;
+    justify-content: center;
+    height: 200px;
+
+}
+
+#rock, #paper, #scissors {
+    height: 20%;
+    width: 20%;
+
+
 }
